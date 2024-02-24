@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "./Card";
+import { PostList } from "../store/post-list-store";
+import WelcomeMessage from "./WelcomeMessage";
 
 function Posts() {
+  const { postList } = useContext(PostList);
+
   return (
-    <div className="flex h-fit flex-wrap justify-center items-center gap-2">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+    <div className="flex flex-wrap w-full mt-1">
+      {postList.length === 0 && <WelcomeMessage />}
+      {postList.map((post) => (
+        <Card key={post.id} post={post} />
+      ))}
     </div>
   );
 }
